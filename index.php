@@ -164,7 +164,7 @@ if ( $switch1 == 1 ) {
 							$_SESSION['switch1'] = 1;
 							$output1 = exec('python3 relay.py ' . 0 . ' ' . 0 . ' 2>&1');
 							echo $output1 . '<br />'; 
-							$contents4 = file_get_contents($url4); 
+							#$contents4 = file_get_contents($url4); 
 						}?>
 						<form action="" method="post">
 							<button id="switchON" type="submit" onclick = "refreshTest" name="button5"><img src="https://pngimage.net/wp-content/uploads/2018/05/button-on-off-png-6.png" width="85" height="80" border="0" alt="Pi-Hole"></button>		
