@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="includes/style.css" />
-    <link rel="stylesheet" href="includes/bootstrap.min.css" />
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
     <!--Better touch screen functionality for p hone-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
     <!-- custom JS -->
@@ -20,8 +20,7 @@
     <link href="common.css" rel="stylesheet">
 </head>
 
-
-	<?php
+<?php
 session_start();
 
 
@@ -59,8 +58,8 @@ $niebieski = $_SESSION['niebieski'];
                         </div>
 						
                         <div id="swatch" class="ui-widget-content ui-corner-all"></div>
-						
-                        <button id="submitColor">Zmien kolor</button>
+						<button id="submitColor">Zmien kolor</button>
+
                         <br/>
                     </div>
 					
@@ -89,10 +88,10 @@ $niebieski = $_SESSION['niebieski'];
 			
 			
 <div id="test">
-<img src="https://www.thelabelpeople.co.uk/user/products/large/LP20605.gif" width="60" height="40" border="0" alt="LocalRouterOrange" />
 
 
 Główny zasilacz jest:
+<br>
 	<?php
 session_start();
 
@@ -106,20 +105,22 @@ $niebieski = $_SESSION['niebieski'];
 $switch1 = $_SESSION['switch1'];
 $switch = $_SESSION['switch'];
 
+
+
+
 if ( $switch == 1 ) {
 	
 	echo"ON";
 						if (isset($_POST['button3'])) 
 						{ 
 							$_SESSION['switch'] = 0;
-							$url1 = 'http://192.168.1.21/control?cmd=gpio,2,1';
-							$contents1 = file_get_contents($url1);
+							$output1 = exec('python3 relay.py ' . 2 . ' ' . 1 . ' 2>&1');
+							echo $output1 . '<br />'; 
+								
 
-
-							
 						}?> 					
 						<form action="" method="post">
-							<button id="switchOff" type="submit" name="button3"><img src="https://i.pinimg.com/originals/6c/63/28/6c63287f5f575632996b62d4e73f0b18.png" width="85" height="80" border="0" alt="Pi-Hole"></button>
+							<button id="switchOff" type="submit" onclick = "refreshTest"  name="button3"><img src="https://i.pinimg.com/originals/6c/63/28/6c63287f5f575632996b62d4e73f0b18.png" width="85" height="80" border="0" alt="Pi-Hole"></button>
 						</form> 
 						<?php
 	
@@ -131,11 +132,11 @@ if ( $switch == 1 ) {
 						if (isset($_POST['button2'])) 
 						{ 
 							$_SESSION['switch'] = 1;
-							$url2 = 'http://192.168.1.21/control?cmd=gpio,2,0';
-							$contents2 = file_get_contents($url2); 
+							$output1 = exec('python3 relay.py ' . 2 . ' ' . 0 . ' 2>&1');
+							echo $output1 . '<br />'; 
 						}?>
 						<form action="" method="post">
-							<button id="switchON" type="submit" name="button2"><img src="https://pngimage.net/wp-content/uploads/2018/05/button-on-off-png-6.png" width="85" height="80" border="0" alt="Pi-Hole"></button>		
+							<button id="switchON" type="submit" onclick = "refreshTest" name="button2"><img src="https://pngimage.net/wp-content/uploads/2018/05/button-on-off-png-6.png" width="85" height="80" border="0" alt="Pi-Hole"></button>		
 						</form>
 <?php
 }
@@ -145,11 +146,11 @@ if ( $switch1 == 1 ) {
 						if (isset($_POST['button4'])) 
 						{ 
 							$_SESSION['switch1'] = 0;
-							$url3 = 'http://192.168.1.21/control?cmd=gpio,0,1';
-							$contents3 = file_get_contents($url3);  
+							$output1 = exec('python3 relay.py ' . 0 . ' ' . 1 . ' 2>&1');
+							echo $output1 . '<br />'; 
 						}?> 					
 						<form action="" method="post">
-							<button id="switchOff" type="submit" name="button4"><img src="https://i.pinimg.com/originals/6c/63/28/6c63287f5f575632996b62d4e73f0b18.png" width="85" height="80" border="0" alt="Pi-Hole"></button>
+							<button id="switchOff" type="submit" onclick = "refreshTest" name="button4"><img src="https://i.pinimg.com/originals/6c/63/28/6c63287f5f575632996b62d4e73f0b18.png" width="85" height="80" border="0" alt="Pi-Hole"></button>
 						</form> 
 						<?php
 	
@@ -161,11 +162,12 @@ if ( $switch1 == 1 ) {
 						if (isset($_POST['button5'])) 
 						{ 
 							$_SESSION['switch1'] = 1;
-							$url4 = 'http://192.168.1.21/control?cmd=gpio,0,0';
+							$output1 = exec('python3 relay.py ' . 0 . ' ' . 0 . ' 2>&1');
+							echo $output1 . '<br />'; 
 							$contents4 = file_get_contents($url4); 
 						}?>
 						<form action="" method="post">
-							<button id="switchON" type="submit" name="button5"><img src="https://pngimage.net/wp-content/uploads/2018/05/button-on-off-png-6.png" width="85" height="80" border="0" alt="Pi-Hole"></button>		
+							<button id="switchON" type="submit" onclick = "refreshTest" name="button5"><img src="https://pngimage.net/wp-content/uploads/2018/05/button-on-off-png-6.png" width="85" height="80" border="0" alt="Pi-Hole"></button>		
 						</form>
 						<?php
 }?>	
@@ -176,16 +178,11 @@ if ( $switch1 == 1 ) {
 		
 
 
+		</div>
+	</div>	
 </div>
-        </div>
-		
-		
-		
-		
-		
-    </div>
 	
-	
+							
 	
 
 	
@@ -197,8 +194,11 @@ var auto_refresh = setInterval(
 function () {
     $('#test').load(' #test');
 }, 500);
-</script>
 
+
+
+
+</script>
 
 <script>
 
@@ -227,6 +227,8 @@ function () {
 	Author: Nazmus Nasir
 	Website: https://www.EasyProgramming.net
 */
+
+
 
 $(document).ready(function () {
     $(function() {
@@ -377,11 +379,7 @@ $(document).ready(function () {
 
 
 
-
 </script>
-
-
-	
 
 		
 </body>
