@@ -65,16 +65,23 @@ I just edited it for my own custom usage.
 All technology used in project:
 
 jQuery v3.3.1 - https://github.com/jquery/jquery
+
 Pickr 1.4.5 - https://github.com/Simonwep/pickr
+
 Including its css: classic.min.css
+
 noUiSlider 14.0.3 - https://github.com/leongersen/noUiSlider
+
 Including its CSS
+
 wNumb.js (dependency of noUiSlider) - https://github.com/rudza/meteor-wnumb/blob/master/wNumb.js
+
 Bootstrap v4.3.1 - https://github.com/twbs/bootstrap
+
 CSS only
-Fonts
-obitron.css
-sourcecodepro.css
+  Fonts
+  obitron.css
+  sourcecodepro.css
 
 All devices used in project:
 
