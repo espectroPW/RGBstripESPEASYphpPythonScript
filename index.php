@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>LIGHTS</title>
+	<link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/RGB_color_wheel_360.svg/1024px-RGB_color_wheel_360.svg.png" />
     <!--jQuery and jQuery UI JS and CSS-->
     <script src="https://code.jquery.com/jquery-2.2.3.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" crossorigin="anonymous"></script>
@@ -23,13 +24,49 @@
 <?php
 session_start();
 
+#wczytanie z pliku BAZY wartosci zmiennych
+$array = explode("\n", file_get_contents('database.txt'));
+
+
+$red = $array[0];
+$green = $array[1];
+$blue = $array[2];
+$sw1 = $array[3];
+$sw = $array[4];
+
+#przekazanie zmiennych do zmiennych które były używane w skrypcie rgb.php
+$czerwony = $red;
+$zielony = $green;
+$niebieski = $blue;
+$switch1 = $sw1;
+$switch = $sw;
+	
+
+
+
+// for($i=0;$i<5;$i++){
+
+	// echo "ID:". $i ." = ". $array[$i] . "<br>";
+	// echo "<br>";
+
+// }	
 
 
 
 
-$czerwony = $_SESSION['czerwony'];
-$zielony = $_SESSION['zielony'];
-$niebieski = $_SESSION['niebieski'];
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ?>
@@ -95,25 +132,39 @@ Główny zasilacz jest:
 	<?php
 session_start();
 
-
-
-
-
-$czerwony = $_SESSION['czerwony'];
-$zielony = $_SESSION['zielony'];
-$niebieski = $_SESSION['niebieski'];
-$switch1 = $_SESSION['switch1'];
-$switch = $_SESSION['switch'];
-
-
-
-
 if ( $switch == 1 ) {
 	
 	echo"ON";
 						if (isset($_POST['button3'])) 
 						{ 
 							$_SESSION['switch'] = 0;
+							#zapis do pliku aktyalnych wartości rgb oraz switchy
+							$fp = fopen("database.txt", "w");
+
+							#fwrite($fp, "czerwony=");
+							fwrite($fp, $red);
+							fwrite($fp, "\n");
+
+
+							#fwrite($fp, "zielony=");
+							fwrite($fp, $green);
+							fwrite($fp, "\n");
+
+
+							#fwrite($fp, "niebieski=");
+							fwrite($fp, $blue);
+							fwrite($fp, "\n");
+
+							#fwrite($fp, "switch1=");
+							fwrite($fp, $sw1);
+							fwrite($fp, "\n");
+
+							#fwrite($fp, "switch=");
+							fwrite($fp, "0");
+							fwrite($fp, "\n");
+
+							fclose($fp);
+							
 							$output1 = exec('python3 relay.py ' . 2 . ' ' . 1 . ' 2>&1');
 							echo $output1 . '<br />'; 
 								
@@ -132,6 +183,31 @@ if ( $switch == 1 ) {
 						if (isset($_POST['button2'])) 
 						{ 
 							$_SESSION['switch'] = 1;
+							$fp = fopen("database.txt", "w");
+
+							#fwrite($fp, "czerwony=");
+							fwrite($fp, $red);
+							fwrite($fp, "\n");
+
+
+							#fwrite($fp, "zielony=");
+							fwrite($fp, $green);
+							fwrite($fp, "\n");
+
+
+							#fwrite($fp, "niebieski=");
+							fwrite($fp, $blue);
+							fwrite($fp, "\n");
+
+							#fwrite($fp, "switch1=");
+							fwrite($fp, $sw1);
+							fwrite($fp, "\n");
+
+							#fwrite($fp, "switch=");
+							fwrite($fp, "1");
+							fwrite($fp, "\n");
+
+							fclose($fp);
 							$output1 = exec('python3 relay.py ' . 2 . ' ' . 0 . ' 2>&1');
 							echo $output1 . '<br />'; 
 						}?>
@@ -146,6 +222,31 @@ if ( $switch1 == 1 ) {
 						if (isset($_POST['button4'])) 
 						{ 
 							$_SESSION['switch1'] = 0;
+							$fp = fopen("database.txt", "w");
+
+							#fwrite($fp, "czerwony=");
+							fwrite($fp, $red);
+							fwrite($fp, "\n");
+
+
+							#fwrite($fp, "zielony=");
+							fwrite($fp, $green);
+							fwrite($fp, "\n");
+
+
+							#fwrite($fp, "niebieski=");
+							fwrite($fp, $blue);
+							fwrite($fp, "\n");
+
+							#fwrite($fp, "switch1=");
+							fwrite($fp, "0");
+							fwrite($fp, "\n");
+
+							#fwrite($fp, "switch=");
+							fwrite($fp, $sw);
+							fwrite($fp, "\n");
+
+							fclose($fp);
 							$output1 = exec('python3 relay.py ' . 0 . ' ' . 1 . ' 2>&1');
 							echo $output1 . '<br />'; 
 						}?> 					
@@ -162,6 +263,32 @@ if ( $switch1 == 1 ) {
 						if (isset($_POST['button5'])) 
 						{ 
 							$_SESSION['switch1'] = 1;
+							$fp = fopen("database.txt", "w");
+
+							#fwrite($fp, "czerwony=");
+							fwrite($fp, $red);
+							fwrite($fp, "\n");
+
+
+							#fwrite($fp, "zielony=");
+							fwrite($fp, $green);
+							fwrite($fp, "\n");
+
+
+							#fwrite($fp, "niebieski=");
+							fwrite($fp, $blue);
+							fwrite($fp, "\n");
+
+							#fwrite($fp, "switch1=");
+							fwrite($fp, "1");
+							fwrite($fp, "\n");
+
+							#fwrite($fp, "switch=");
+							fwrite($fp, $sw);
+							fwrite($fp, "\n");
+
+							fclose($fp);
+							
 							$output1 = exec('python3 relay.py ' . 0 . ' ' . 0 . ' 2>&1');
 							echo $output1 . '<br />'; 
 							#$contents4 = file_get_contents($url4); 
@@ -172,22 +299,11 @@ if ( $switch1 == 1 ) {
 						<?php
 }?>	
 
-
-
-
-		
-
-
 		</div>
 	</div>	
 </div>
 	
 							
-	
-
-	
-	
-	
 
 <script>
 var auto_refresh = setInterval(
@@ -264,7 +380,7 @@ $(document).ready(function () {
           slide: refreshSwatch,
           change: refreshSwatch
         });
-
+<!-- wyświetlenie wartości przechowywanych w sessji / bazie na paskach (ustawienie ich)
         $( "#red" ).slider( "value",<?php echo"$czerwony" ?> );
         $( "#green" ).slider( "value", <?php echo"$zielony" ?> );
         $( "#blue" ).slider( "value", <?php echo"$niebieski" ?> );
@@ -275,6 +391,7 @@ $(document).ready(function () {
             "red" : $("#redNum").text(),
             "green" : $("#greenNum").text(),
             "blue" : $("#blueNum").text()
+
         };		
 		
         $.ajax({
