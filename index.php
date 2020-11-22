@@ -25,14 +25,18 @@
 session_start();
 
 #wczytanie z pliku BAZY wartosci zmiennych
-$array = explode("\n", file_get_contents('database.txt'));
+$array = explode("\n", file_get_contents('databaseRGB.txt'));
 
 
 $red = $array[0];
 $green = $array[1];
 $blue = $array[2];
-$sw1 = $array[3];
-$sw = $array[4];
+
+
+$array = explode("\n", file_get_contents('databaseSwitch.txt'));
+
+$sw = $array[0];
+$sw1 = $array[1];
 
 #przekazanie zmiennych do zmiennych które były używane w skrypcie rgb.php
 $czerwony = $red;
@@ -51,26 +55,7 @@ $switch = $sw;
 
 // }	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>
-
 
 
 
@@ -106,8 +91,15 @@ $switch = $sw;
                         <button class="defaultColors" data-color="red" id="redDef"></button>
                         <button class="defaultColors" data-color="green" id="greenDef"></button>
                         <button class="defaultColors" data-color="blue" id="blueDef"></button>
-                        <button class="defaultColors" data-color="yellow" id="yellowDef"></button>                                               
+                        <button class="defaultColors" data-color="yellow" id="yellowDef"></button>						
                     </div>
+					
+						
+						<form action="" method="post">
+							<button id="switchRainbow" type="submit" onclick = "refreshTest"  name="switchRainbow"><img src="https://i.imgur.com/5tnXQcS.gif" width="85" height="80" border="0" alt=" "></button>
+						</form> 
+
+
 
 
 
@@ -132,6 +124,36 @@ Główny zasilacz jest:
 	<?php
 session_start();
 
+
+
+
+if (isset($_POST['switchRainbow'])) {
+	
+	$_SESSION['switchRainbow'] = 1;
+	
+	$switchRainbow = $_GET['switchRainbow'];
+	
+	$output1 = exec('python3 rainbow.py');
+	
+}
+
+if ( $switchRainbow == 1 ) {
+	
+	$output1 = exec('python3 rainbow.py');
+	
+}else if ( $switchRainbow == 0 ) {
+	
+	$_SESSION['switchRainbow'] = 0;
+	
+}
+
+
+
+
+
+
+
+
 if ( $switch == 1 ) {
 	
 	echo"ON";
@@ -139,28 +161,14 @@ if ( $switch == 1 ) {
 						{ 
 							$_SESSION['switch'] = 0;
 							#zapis do pliku aktyalnych wartości rgb oraz switchy
-							$fp = fopen("database.txt", "w");
-
-							#fwrite($fp, "czerwony=");
-							fwrite($fp, $red);
-							fwrite($fp, "\n");
-
-
-							#fwrite($fp, "zielony=");
-							fwrite($fp, $green);
-							fwrite($fp, "\n");
-
-
-							#fwrite($fp, "niebieski=");
-							fwrite($fp, $blue);
-							fwrite($fp, "\n");
+							$fp = fopen("databaseSwitch.txt", "w");
 
 							#fwrite($fp, "switch1=");
-							fwrite($fp, $sw1);
+							fwrite($fp, "0");
 							fwrite($fp, "\n");
 
 							#fwrite($fp, "switch=");
-							fwrite($fp, "0");
+							fwrite($fp, $sw1);
 							fwrite($fp, "\n");
 
 							fclose($fp);
@@ -183,28 +191,14 @@ if ( $switch == 1 ) {
 						if (isset($_POST['button2'])) 
 						{ 
 							$_SESSION['switch'] = 1;
-							$fp = fopen("database.txt", "w");
-
-							#fwrite($fp, "czerwony=");
-							fwrite($fp, $red);
-							fwrite($fp, "\n");
-
-
-							#fwrite($fp, "zielony=");
-							fwrite($fp, $green);
-							fwrite($fp, "\n");
-
-
-							#fwrite($fp, "niebieski=");
-							fwrite($fp, $blue);
-							fwrite($fp, "\n");
+							$fp = fopen("databaseSwitch.txt", "w");
 
 							#fwrite($fp, "switch1=");
-							fwrite($fp, $sw1);
+							fwrite($fp, "1");
 							fwrite($fp, "\n");
 
 							#fwrite($fp, "switch=");
-							fwrite($fp, "1");
+							fwrite($fp, $sw1);
 							fwrite($fp, "\n");
 
 							fclose($fp);
@@ -222,28 +216,14 @@ if ( $switch1 == 1 ) {
 						if (isset($_POST['button4'])) 
 						{ 
 							$_SESSION['switch1'] = 0;
-							$fp = fopen("database.txt", "w");
-
-							#fwrite($fp, "czerwony=");
-							fwrite($fp, $red);
-							fwrite($fp, "\n");
-
-
-							#fwrite($fp, "zielony=");
-							fwrite($fp, $green);
-							fwrite($fp, "\n");
-
-
-							#fwrite($fp, "niebieski=");
-							fwrite($fp, $blue);
-							fwrite($fp, "\n");
+							$fp = fopen("databaseSwitch.txt", "w");
 
 							#fwrite($fp, "switch1=");
-							fwrite($fp, "0");
+							fwrite($fp, $sw);
 							fwrite($fp, "\n");
 
 							#fwrite($fp, "switch=");
-							fwrite($fp, $sw);
+							fwrite($fp, "0");
 							fwrite($fp, "\n");
 
 							fclose($fp);
@@ -263,28 +243,14 @@ if ( $switch1 == 1 ) {
 						if (isset($_POST['button5'])) 
 						{ 
 							$_SESSION['switch1'] = 1;
-							$fp = fopen("database.txt", "w");
-
-							#fwrite($fp, "czerwony=");
-							fwrite($fp, $red);
-							fwrite($fp, "\n");
-
-
-							#fwrite($fp, "zielony=");
-							fwrite($fp, $green);
-							fwrite($fp, "\n");
-
-
-							#fwrite($fp, "niebieski=");
-							fwrite($fp, $blue);
-							fwrite($fp, "\n");
+							$fp = fopen("databaseSwitch.txt", "w");
 
 							#fwrite($fp, "switch1=");
-							fwrite($fp, "1");
+							fwrite($fp, $sw);
 							fwrite($fp, "\n");
 
 							#fwrite($fp, "switch=");
-							fwrite($fp, $sw);
+							fwrite($fp, "1");
 							fwrite($fp, "\n");
 
 							fclose($fp);
@@ -391,7 +357,6 @@ $(document).ready(function () {
             "red" : $("#redNum").text(),
             "green" : $("#greenNum").text(),
             "blue" : $("#blueNum").text()
-
         };		
 		
         $.ajax({
